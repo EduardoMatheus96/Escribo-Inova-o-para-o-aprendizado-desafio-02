@@ -14,7 +14,11 @@ class MyApp extends StatelessWidget {
       title: 'Flutter Demo',
       theme: lightTheme,
       darkTheme: darkTheme,
-      home: const MyHomePage(bookService: bookService),
+      initialRoute: '/books', // Defina a rota inicial
+      routes: {
+        '/books': (context) => BookListPage(bookService: bookService),
+        // Adicione outras rotas aqui
+      },
     );
   }
 }
