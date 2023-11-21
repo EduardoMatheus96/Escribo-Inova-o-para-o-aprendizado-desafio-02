@@ -13,7 +13,17 @@ class Book {
     required this.downloadUrl,
   });
 
-  Book.fromMap(Map<String, dynamic> map)
+  factory Book.fromJson(Map<String, dynamic> json) {
+    return Book(
+      id: json['id'],
+      title: json['title'],
+      author: json['author'],
+      coverUrl: json['cover_url'],
+      downloadUrl: json['download_url'],
+    );
+  }
+
+  Book.from(Map<String, dynamic> map)
       : id = map["id"],
         title = map["title"],
         author = map["author"],
