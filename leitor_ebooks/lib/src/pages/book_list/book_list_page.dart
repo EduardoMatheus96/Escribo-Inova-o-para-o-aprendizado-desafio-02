@@ -24,67 +24,69 @@ class _BookListPageState extends State<BookListPage> {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(
-        title: const Text('Lista de Livros'),
-      ),
-      body: FutureBuilder(
-        future: _booksFuture,
-        builder: (context, snapshot) {
-          if (snapshot.connectionState == ConnectionState.waiting) {
-            return const Center(
-              child: CircularProgressIndicator(),
-            );
-          } else if (snapshot.hasError) {
-            return Center(
-              child: Text('Erro: ${snapshot.error}'),
-            );
-          } else {
-            final books = snapshot.data!;
-            return Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                Row(
-                  children: [
-                    ElevatedButton(
-                      onPressed: () {
-                        // Navegar para lista de livros ...
-                      },
-                      child: const Text('Livros'),
-                    ),
-                    const SizedBox(width: 80),
-                    ElevatedButton(
-                      onPressed: () {
-                        // Navegar para lista de favoritos,
-                      },
-                      child: const Text('Favoritos'),
-                    ),
-                  ],
-                ),
-                Expanded(
-                  child: GridView.builder(
-                    gridDelegate:
-                        const SliverGridDelegateWithFixedCrossAxisCount(
-                      crossAxisCount: 2,
-                    ),
-                    itemCount: books.length,
-                    itemBuilder: (context, index) {
-                      final book = books[index];
-                      return BookTile(
-                        book: book,
-                        isFavorite:
-                            false, // Falta criar o metodo para definir isso ainda
-                        onFavoriteTap: () {
-                          // Implementar logica para favoritar um livro ...
+    return SafeArea(
+      child: Scaffold(
+        // appBar: AppBar(
+        //   title: const Text('Lista de Livros'),
+        // ),
+        body: FutureBuilder(
+          future: _booksFuture,
+          builder: (context, snapshot) {
+            if (snapshot.connectionState == ConnectionState.waiting) {
+              return const Center(
+                child: CircularProgressIndicator(),
+              );
+            } else if (snapshot.hasError) {
+              return Center(
+                child: Text('Erro: ${snapshot.error}'),
+              );
+            } else {
+              final books = snapshot.data!;
+              return Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  Row(
+                    children: [
+                      ElevatedButton(
+                        onPressed: () {
+                          // Navegar para lista de livros ...
                         },
-                      );
-                    },
+                        child: const Text('Livros'),
+                      ),
+                      const SizedBox(width: 80),
+                      ElevatedButton(
+                        onPressed: () {
+                          // Navegar para lista de favoritos,
+                        },
+                        child: const Text('Favoritos'),
+                      ),
+                    ],
                   ),
-                ),
-              ],
-            );
-          }
-        },
+                  Expanded(
+                    child: GridView.builder(
+                      gridDelegate:
+                          const SliverGridDelegateWithFixedCrossAxisCount(
+                        crossAxisCount: 2,
+                      ),
+                      itemCount: books.length,
+                      itemBuilder: (context, index) {
+                        final book = books[index];
+                        return BookTile(
+                          book: book,
+                          isFavorite:
+                              false, // Falta criar o metodo para definir isso ainda
+                          onFavoriteTap: () {
+                            // Implementar logica para favoritar um livro ...
+                          },
+                        );
+                      },
+                    ),
+                  ),
+                ],
+              );
+            }
+          },
+        ),
       ),
     );
   }

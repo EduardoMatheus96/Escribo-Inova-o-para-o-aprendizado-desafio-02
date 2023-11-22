@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:leitor_ebooks/src/services/book_service.dart';
+import 'routes/routes.dart';
 import 'themes/light_theme.dart';
 import 'themes/dark_theme.dart';
 
@@ -14,11 +15,9 @@ class MyApp extends StatelessWidget {
       title: 'Flutter Demo',
       theme: lightTheme,
       darkTheme: darkTheme,
-      initialRoute: '/books', // Defina a rota inicial
-      routes: {
-        '/books': (context) => BookListPage(bookService: bookService),
-        // Adicione outras rotas aqui
-      },
+      initialRoute: AppRoutes.books,
+      routes: AppRoutes.routes,
+      debugShowCheckedModeBanner: false,
     );
   }
 }
